@@ -1,0 +1,12 @@
+[package]
+name = "rust-apex"
+version = "0.1.0"
+authors = ["Wu Young <doomsplayer@gmail.com>"]
+build = "build.rs"
+
+[dependencies]
+serde = "0.8"
+serde_json = "0.8"
+
+[build-dependencies]
+serde_codegen = "0.8.4"
