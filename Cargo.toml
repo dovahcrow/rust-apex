@@ -2,7 +2,14 @@
 name = "rust-apex"
 version = "0.1.0"
 authors = ["Wu Young <doomsplayer@gmail.com>"]
+description = "Rust support for apex"
+homepage = "https://github.com/doomsplayer/rust-apex"
+license = "MIT"
+repository = "https://github.com/doomsplayer/rust-apex"
+readme = "README.md"
+keywords = ["apex", "lambda"]
 build = "build.rs"
+
 
 [dependencies]
 serde = "0.8"
