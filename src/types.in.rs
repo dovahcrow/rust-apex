@@ -7,7 +7,7 @@ pub struct Input<T: Deserialize> {
     pub context: Context,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 pub struct Context {
     #[serde(rename = "invokeid")]
     pub invoke_id: String,
@@ -20,19 +20,19 @@ pub struct Context {
     #[serde(rename = "logGroupName")]
     pub log_group_name: String,
     #[serde(rename = "logStreamName")]
-    pub log_stream_name: String,
+    pub log_stream_name: Option<String>,
     #[serde(rename = "memoryLimitInMB")]
     pub memory_limit_in_mb: String,
     #[serde(rename = "isDefaultFunctionVersion")]
-    pub is_default_function_version: bool,
+    pub is_default_function_version: Option<bool>,
     #[serde(rename = "clientContext")]
-    pub client_context: Value,
-    pub identity: Identity,
+    pub client_context: Option<Value>,
+    pub identity: Option<Identity>,
     #[serde(rename = "invokedFunctionARN")]
-    pub invoked_function_arn: String,
+    pub invoked_function_arn: Option<String>,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 pub struct Identity {
     #[serde(rename = "cognitoIdentityId")]
     pub cognito_identity_id: String,
