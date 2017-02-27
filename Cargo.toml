@@ -7,13 +7,10 @@ homepage = "https://github.com/doomsplayer/rust-apex"
 license = "MIT"
 repository = "https://github.com/doomsplayer/rust-apex"
 readme = "README.md"
-keywords = ["apex", "lambda"]
-build = "build.rs"
-
+keywords = ["apex", "lambda", "aws"]
 
 [dependencies]
-serde = "0.8"
-serde_json = "0.8"
+serde = "0.9"
+serde_derive = "0.9"
+serde_json = "0.9"
 
-[build-dependencies]
-serde_codegen = "0.8.4"
