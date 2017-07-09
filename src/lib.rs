@@ -15,11 +15,11 @@ pub use types::Context;
 
 mod types;
 
-pub trait Handler<I: Deserialize, O: Serialize, E: Error> {
+pub trait Handler<I: for<'de> Deserialize<'de>, O: Serialize, E: Error> {
     fn handle(&self, I, Context) -> Result<O, E>;
 }
 
-impl<I: Deserialize, O: Serialize, E: Error, F> Handler<I, O, E> for F
+impl<I: for<'de> Deserialize<'de>, O: Serialize, E: Error, F> Handler<I, O, E> for F
     where F: Fn(I, Context) -> Result<O, E>
 {
     fn handle(&self, ipt: I, ctx: Context) -> Result<O, E> {
@@ -27,7 +27,7 @@ impl<I: Deserialize, O: Serialize, E: Error, F> Handler<I, O, E> for F
     }
 }
 
-pub fn run<I: Deserialize, O: Serialize, E: Error, H: Handler<I, O, E>>(h: H) {
+pub fn run<I: for<'de> Deserialize<'de>, O: Serialize, E: Error, H: Handler<I, O, E>>(h: H) {
     let mut buf = String::new();
     loop {
 

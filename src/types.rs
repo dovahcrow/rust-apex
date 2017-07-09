@@ -1,8 +1,8 @@
 use serde_json::Value;
-use serde::{Deserialize, Serialize};
+use serde::Serialize;
 
 #[derive(Deserialize, Debug)]
-pub struct Input<T: Deserialize> {
+pub struct Input<T> {
     pub event: T,
     pub context: Context,
 }
