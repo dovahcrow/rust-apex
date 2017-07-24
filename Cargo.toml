@@ -1,6 +1,6 @@
 [package]
 name = "rust-apex"
-version = "0.2.0"
+version = "0.3.0"
 authors = ["Wu Young <doomsplayer@gmail.com>"]
 description = "Rust support for apex"
 homepage = "https://github.com/doomsplayer/rust-apex"
