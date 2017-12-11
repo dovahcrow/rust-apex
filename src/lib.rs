@@ -64,10 +64,10 @@ fn return_error<O: Serialize, E: Error, K: Into<Option<String>>>(id: K, e: E) {
         id: id,
         error: format!("{}", e),
     }).unwrap();
-    print!("{}", s);
+    println!("{}", s);
 }
 
 fn return_success<O: Serialize>(id: String, r: O) {
     let s = to_string(&Output::Value { id: id, value: r }).unwrap();
-    print!("{}", s);
+    println!("{}", s);
 }
