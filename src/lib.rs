@@ -14,6 +14,7 @@ use types::{Input, Output};
 pub use types::Context;
 
 mod types;
+mod macros;
 
 pub trait Handler<I: for<'de> Deserialize<'de>, O: Serialize, E: Error> {
     fn handle(&self, I, Context) -> Result<O, E>;
