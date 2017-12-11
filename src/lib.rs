@@ -20,7 +20,12 @@ pub trait Handler<I: for<'de> Deserialize<'de>, O: Serialize, E: Error> {
 }
 
 impl<I: for<'de> Deserialize<'de>, O: Serialize, E: Error, F> Handler<I, O, E> for F
-    where F: Fn(I, Context) -> Result<O, E>
+where
+    F: Fn(I, Context)
+       -> Result<
+        O,
+        E,
+    >,
 {
     fn handle(&self, ipt: I, ctx: Context) -> Result<O, E> {
         self(ipt, ctx)
@@ -33,7 +38,7 @@ pub fn run<I: for<'de> Deserialize<'de>, O: Serialize, E: Error, H: Handler<I, O
 
         // use `from_reader(stdin())` here is not correct.
         if let Err(e) = stdin().read_line(&mut buf) {
-            return_error::<O, _>(e);
+            return_error::<O, _, _>(None, e);
             break;
         }
         let i: Result<Input<I>, _> = from_str(&buf);
@@ -41,23 +46,28 @@ pub fn run<I: for<'de> Deserialize<'de>, O: Serialize, E: Error, H: Handler<I, O
         match i {
             Ok(ipt) => {
                 match h.handle(ipt.event, ipt.context) {
-                    Ok(r) => return_success(r),
-                    Err(e) => return_error::<O, _>(e),
+                    Ok(r) => return_success(ipt.id, r),
+                    Err(e) => return_error::<O, _, _>(ipt.id, e),
                 }
             }
-            Err(e) => return_error::<O, _>(e),
+            Err(e) => return_error::<O, _, _>(None, e),
         }
 
         buf.clear();
     }
 }
 
-fn return_error<O: Serialize, E: Error>(e: E) {
-    let s = to_string(&Output::Error::<O>(format!("{}", e))).unwrap();
-    println!("{}", s);
+fn return_error<O: Serialize, E: Error, K: Into<Option<String>>>(id: K, e: E) {
+    let id = id.into();
+
+    let s = to_string(&Output::Error::<O> {
+        id: id,
+        error: format!("{}", e),
+    }).unwrap();
+    print!("{}", s);
 }
 
-fn return_success<O: Serialize>(r: O) {
-    let s = to_string(&Output::Value(r)).unwrap();
-    println!("{}", s);
+fn return_success<O: Serialize>(id: String, r: O) {
+    let s = to_string(&Output::Value { id: id, value: r }).unwrap();
+    print!("{}", s);
 }

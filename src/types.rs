@@ -3,6 +3,7 @@ use serde::Serialize;
 
 #[derive(Deserialize, Debug)]
 pub struct Input<T> {
+    pub id: String,
     pub event: T,
     pub context: Context,
 }
@@ -41,9 +42,8 @@ pub struct Identity {
 }
 
 #[derive(Serialize, Debug)]
+#[serde(untagged)]
 pub enum Output<T: Serialize> {
-    #[serde(rename = "error")]
-    Error(String),
-    #[serde(rename = "value")]
-    Value(T),
+    Error { id: Option<String>, error: String },
+    Value { id: String, value: T },
 }
