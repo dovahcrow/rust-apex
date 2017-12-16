@@ -1,0 +1,10 @@
+[package]
+name = "new_checker"
+version = "0.1.0"
+authors = ["Weiyüen Wu <doomsplayer@gmail.com>"]
+
+[dependencies]
+rust-apex = "0.3"
+failure = "0.1"
+serde = "1"
+serde_json = "1"
