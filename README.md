@@ -1,14 +1,11 @@
 rust-apex
 ========
 
-Rust support for apex, letting you run rust on AWS Lambda without pain!
+This library provides Rust support for apex, letting you run rust on AWS Lambda without pain!
 
-Please refer to [apex-example](https://github.com/apex/apex/tree/master/_examples/rust) for a complete example with apex configuration.
+A example with apex configuration for quick start can be found at [apex-example](https://github.com/apex/apex/tree/master/_examples/rust) .
 
-More running examples can be found in `examples` directory.
-
-## minimal scaffold
-
+Here is a simple example for minimal scaffold:
 ```rust
 extern crate failure;
 #[macro_use]
@@ -28,3 +25,5 @@ fn handle(input: Value, _: Context) -> Result<Value, Error> {
     }))
 }
 ```
+
+More running examples can be found in `examples` directory.
